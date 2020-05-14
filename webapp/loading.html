@@ -1,0 +1,57 @@
+<div id="businessContainer" style="display: none">
+	<iframe src="pageSourceURL" width="100%" height="100%" frameborder="0"
+		marginwidth="0" marginheight="0"></iframe>
+</div>
+<div id=ld>
+	<table width=100% height=90%>
+		<tr>
+			<td align=center>
+				<center>
+					<font color=MediumSeaGreen>正在载入，请稍侯...</font>
+					<table width=40%>
+						<tr>
+							<td align=left>
+								<table id=lpc bgcolor=LightSeaGreen>
+									<tr>
+										<td></td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+					<br> <br> <br>
+				</center>
+			</td>
+		</tr>
+	</table>
+</div>
+<script>
+	ini = new Date().getTime();
+	var pc = 0;
+	load();
+
+	function load() {
+		pc += 2;
+		lpc.style.width = pc + "%";
+		time = setTimeout("load()", 25);
+		if (pc > 100) {
+			clearTimeout(time);
+			loaded()
+		}
+	}
+	function loaded() {
+		fim = new Date().getTime();
+		dif = fim - ini;
+		ld.style.height = '0px';
+		ld.style.display = 'none';
+		businessContainer.style.display = '';
+	}
+	function Show() {
+		if (txt.style.display == "none") {
+			txt.style.display = ""
+		}
+		else {
+			txt.style.display = "none"
+		}
+	}
+</script>

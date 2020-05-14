@@ -1,0 +1,175 @@
+<mvc:View controllerName="report.WorkFlowReport.controller.Detail"
+	xmlns="sap.m" 
+	xmlns:f="sap.ui.layout.form"
+	xmlns:com="sap.suite.ui.commons"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:t="sap.ui.table">
+	<Page showHeader="false">
+		<subHeader>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button icon="sap-icon://full-screen" type="Transparent" visible="{=!${/appProperties/fullScreen}}" press="toggleFullScreen" />
+				<Button icon="sap-icon://exit-full-screen" type="Transparent" visible="{/appProperties/fullScreen}" press="toggleFullScreen" />
+				<Button icon="sap-icon://decline" type="Transparent" press="onCloseDetailPress" />
+			</OverflowToolbar>
+		</subHeader>
+		<Panel class="sapUiResponsiveMargin">
+			<Title level="H6" text="ECR申请流程{/document}" />
+		</Panel>
+		<!--<Input></Input>-->
+		<IconTabBar class="sapUiSmallMarginBottom sapUiResponsiveContentPadding">
+			<items>
+				<IconTabFilter text="抬头">
+					<f:SimpleForm minWidth="1024" maxContainerCols="2" layout="ResponsiveGridLayout">
+						<Label text="ECR编号"/>
+						<Text text="{/ECRHeader/ECRNO}"/>
+						<Label text="ECR主旨"/>
+						<Text text="{/ECRHeader/ECRSUBJECT}"/>
+						<Label text="组织"/>
+						<Text text="{/ECRHeader/ORGANIZATION}"/>
+						<Label text="形成日期"/>
+						<Text text="{/ECRHeader/FORMDATE}"/>
+						<Label text="部门"/>
+						<Text text="{/ECRHeader/DEPARTMENT}"/>
+						<Label text="模型号"/>
+						<Text text="{/ECRHeader/MODELNO}"/>
+						<Label text="填表人"/>
+						<Text text="{/ECRHeader/WRITER}"/>
+						<Label text="申请人"/>
+						<Text text="{/ECRHeader/REQUESTER}"/>
+						<Label text="变更原因"/>
+						<Text text="{/ECRHeader/CHANGEREASON}"/>
+						<Label text="建议"/>
+						<Text text="{/ECRHeader/ADVISE}"/>
+						<Label text="未变更导致影响"/>
+						<Text text="{/ECRHeader/NOCHANGEIMPACT}"/>
+						<Label text="主要工程师"/>
+						<Text text="{/ECRHeader/MAINENGINEER}"/>
+						<Label text="次要工程师"/>
+						<Text text="{/ECRHeader/SECONDENGINEER}"/>
+					</f:SimpleForm>
+				</IconTabFilter>
+				<IconTabFilter text="明细">
+					<t:Table rows="{/ECRItem}" 
+						class="sapFDynamicPageAlignContent" 
+						selectionMode="None">
+						<t:columns>
+							<t:Column label="项目编号" hAlign="Center" width="5rem">
+								<t:template>
+									<Text text="{ECRITEMNUM}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="料号" hAlign="Center" width="11rem">
+								<t:template>
+									<Text text="{MATERIAL}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="仓别_1" hAlign="Center" width="5rem">
+								<t:template>
+									<Text text="{WAREHOUSE1}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="数量_1" hAlign="Center" width="9rem">
+								<t:template>
+									<Text text="{QUANTITY1}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="使用方式_1" hAlign="Center" width="9rem">
+								<t:template>
+									<Text text="{INSTRUCTIONS1}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="其他说明" hAlign="Center" width="5rem">
+								<t:template>
+									<Text text="{OINSTRUCTIONS}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="仓別_2" hAlign="Center" width="7rem">
+								<t:template>
+									<Text text="{WAREHOUSE2}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="数量_2" hAlign="Center" width="11rem">
+								<t:template>
+									<Text text="{QUANTITY2}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="使用方式_2" hAlign="Center" width="6rem">
+								<t:template>
+									<Text text="{INSTRUCTIONS2}" maxLines="1" />
+								</t:template>
+							</t:Column>
+						</t:columns>
+					</t:Table>
+				</IconTabFilter>
+				<IconTabFilter text="审批日志">
+					<IconTabBar class="sapUiResponsiveContentPadding" items="{/WORKFLOWLOG}">
+						<items>
+							<IconTabFilter icon="sap-icon://heatmap-chart"
+								iconColor="Positive" design="Horizontal"
+								text="{parts:[{path:'FLOWID'},
+									{path:'STARTCOMPANY'},
+									{path:'NODEID'},
+									{path:'SUBNODEID'}],
+									formatter:'.setNodeDescription'}">
+								<Table>
+									<columns>
+										<Column>
+											<Text text="审批人" />
+										</Column>
+										<Column demandPopin="true" minScreenWidth="Tablet"
+											popinDisplay="Inline">
+											<Text text="审批结果" />
+										</Column>
+										<Column demandPopin="true" minScreenWidth="Tablet"
+											popinDisplay="Inline">
+											<Text text="审核意见" />
+										</Column>
+										<Column demandPopin="true" minScreenWidth="Tablet"
+											popinDisplay="Inline">
+											<Text text="审核日期" />
+										</Column>
+									</columns>
+									<items>
+										<ColumnListItem>
+											<cells>
+												<Text text="{ACCOUNT}" />
+												<Text text="{SUGGESTION}" />
+												<Text text="{RESULT}" />
+												<Text text="{path: 'APPROVALDATE', formatter: '.date'}" />
+											</cells>
+										</ColumnListItem>
+									</items>
+								</Table>
+							</IconTabFilter>
+						</items>
+					</IconTabBar>
+					<!--<com:ProcessFlow-->
+					<!--	scrollable="false"-->
+					<!--	foldedCorners="true">-->
+					<!--	<com:nodes>-->
+					<!--		<com:ProcessFlowNode-->
+					<!--			laneId="0"-->
+					<!--			nodeId="1"-->
+					<!--			title="Sales Order 1"-->
+					<!--			titleAbbreviation="SO 1"-->
+					<!--			children="1"-->
+					<!--			state="Positive"-->
+					<!--			stateText="审批结果"-->
+					<!--			texts="2"-->
+					<!--			highlighted="false"-->
+					<!--			focused="true" />-->
+					<!--	</com:nodes>-->
+					<!--	<com:lanes>-->
+					<!--		<com:ProcessFlowLaneHeader-->
+					<!--			laneId="1"-->
+					<!--			iconSrc="sap-icon://order-status"-->
+					<!--			text="Order Processing"-->
+					<!--			position="0" />-->
+					<!--	</com:lanes>-->
+					<!--</com:ProcessFlow>-->
+				</IconTabFilter>
+			</items>
+		</IconTabBar>
+	</Page>
+</mvc:View>

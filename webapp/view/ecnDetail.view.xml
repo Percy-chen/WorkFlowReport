@@ -1,0 +1,184 @@
+<mvc:View controllerName="report.WorkFlowReport.controller.Detail"
+	xmlns="sap.m" 
+	xmlns:f="sap.ui.layout.form"
+	xmlns:com="sap.suite.ui.commons"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:t="sap.ui.table">
+	<Page showHeader="false">
+		<subHeader>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button icon="sap-icon://full-screen" type="Transparent" visible="{=!${/appProperties/fullScreen}}" press="toggleFullScreen" />
+				<Button icon="sap-icon://exit-full-screen" type="Transparent" visible="{/appProperties/fullScreen}" press="toggleFullScreen" />
+				<Button icon="sap-icon://decline" type="Transparent" press="onCloseDetailPress" />
+			</OverflowToolbar>
+		</subHeader>
+		<Panel class="sapUiResponsiveMargin">
+			<Title level="H6" text="ECN申请流程{/document}" />
+		</Panel>
+		<!--<Input></Input>-->
+		<IconTabBar class="sapUiSmallMarginBottom sapUiResponsiveContentPadding">
+			<items>
+				<IconTabFilter text="抬头">
+					<f:SimpleForm minWidth="1024" maxContainerCols="2" layout="ResponsiveGridLayout">
+						<Label text="ECN编号"/>
+						<Text text="{/ECN/ECNNO}"/>
+						<Label text="ECR编号"/>
+						<Text text="{/ECN/ECRNO}"/>
+						<Label text="形成日期"/>
+						<Text text="{/ECN/FORMDATE}"/>
+						<Label text="部门"/>
+						<Text text="{/ECN/DEPARTMENT}"/>
+						<Label text="模型号"/>
+						<Text text="{/ECN/MODELNO}"/>
+						<Label text="填表人"/>
+						<Text text="{/ECN/WRITER}"/>
+						<Label text="申请人"/>
+						<Text text="{/ECN/REQUESTER}"/>
+						<Label text="变更原因"/>
+						<Text text="{/ECN/CHANGEREASON}"/>
+						<Label text="建议"/>
+						<Text text="{/ECN/ADVISE}"/>
+						<Label text="未变更导致影响"/>
+						<Text text="{/ECN/NOCHANGEIMPACT}"/>
+					</f:SimpleForm>
+				</IconTabFilter>
+				<IconTabFilter text="明细">
+					<t:Table rows="{/ECNI}" 
+						class="sapFDynamicPageAlignContent" 
+						selectionMode="None">
+						<t:columns>
+							<t:Column label="项目编号" hAlign="Center" width="5rem">
+								<t:template>
+									<Text text="{ECNITEMNUM}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="组件料号" hAlign="Center" width="11rem">
+								<t:template>
+									<Text text="{COMPONENT}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="零件位置" hAlign="Center" width="5rem">
+								<t:template>
+									<Text text="{PARTLOCATION}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="ECN前料号" hAlign="Center" width="9rem">
+								<t:template>
+									<Text text="{ECNMATERIAL1}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="ECN后料号" hAlign="Center" width="9rem">
+								<t:template>
+									<Text text="{ECNMATERIAL2}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="数量1" hAlign="Center" width="5rem">
+								<t:template>
+									<Text text="{QUANTITY1}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="处理方式1" hAlign="Center" width="7rem">
+								<t:template>
+									<Text text="{PROCESSINGWAY1}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="料号" hAlign="Center" width="11rem">
+								<t:template>
+									<Text text="{MATERIAL}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="仓别" hAlign="Center" width="6rem">
+								<t:template>
+									<Text text="{WAREHOUSE}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="数量2" hAlign="Center" width="5rem">
+								<t:template>
+									<Text text="{QUANTITY2}" />
+								</t:template>
+							</t:Column>
+							<t:Column label="处理方式2" hAlign="Center" width="7rem">
+								<t:template>
+									<Text text="{PROCESSINGWAY2}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="其他说明" hAlign="Center" width="9rem">
+								<t:template>
+									<Text text="{OINSTRUCTIONS}" maxLines="1" tooltip="{OINSTRUCTIONS}" />
+								</t:template>
+							</t:Column>
+						</t:columns>
+					</t:Table>
+				</IconTabFilter>
+				<IconTabFilter text="审批日志">
+					<IconTabBar class="sapUiResponsiveContentPadding" items="{/WORKFLOWLOG}">
+						<items>
+							<IconTabFilter icon="sap-icon://heatmap-chart"
+								iconColor="Positive" design="Horizontal"
+								text="{parts:[{path:'FLOWID'},
+									{path:'STARTCOMPANY'},
+									{path:'NODEID'},
+									{path:'SUBNODEID'}],
+									formatter:'.setNodeDescription'}">
+								<Table>
+									<columns>
+										<Column>
+											<Text text="审批人" />
+										</Column>
+										<Column demandPopin="true" minScreenWidth="Tablet"
+											popinDisplay="Inline">
+											<Text text="审批结果" />
+										</Column>
+										<Column demandPopin="true" minScreenWidth="Tablet"
+											popinDisplay="Inline">
+											<Text text="审核意见" />
+										</Column>
+										<Column demandPopin="true" minScreenWidth="Tablet"
+											popinDisplay="Inline">
+											<Text text="审核日期" />
+										</Column>
+									</columns>
+									<items>
+										<ColumnListItem>
+											<cells>
+												<Text text="{ACCOUNT}" />
+												<Text text="{SUGGESTION}" />
+												<Text text="{RESULT}" />
+												<Text text="{path: 'APPROVALDATE', formatter: '.date'}" />
+											</cells>
+										</ColumnListItem>
+									</items>
+								</Table>
+							</IconTabFilter>
+						</items>
+					</IconTabBar>
+					<!--<com:ProcessFlow-->
+					<!--	scrollable="false"-->
+					<!--	foldedCorners="true">-->
+					<!--	<com:nodes>-->
+					<!--		<com:ProcessFlowNode-->
+					<!--			laneId="0"-->
+					<!--			nodeId="1"-->
+					<!--			title="Sales Order 1"-->
+					<!--			titleAbbreviation="SO 1"-->
+					<!--			children="1"-->
+					<!--			state="Positive"-->
+					<!--			stateText="审批结果"-->
+					<!--			texts="2"-->
+					<!--			highlighted="false"-->
+					<!--			focused="true" />-->
+					<!--	</com:nodes>-->
+					<!--	<com:lanes>-->
+					<!--		<com:ProcessFlowLaneHeader-->
+					<!--			laneId="1"-->
+					<!--			iconSrc="sap-icon://order-status"-->
+					<!--			text="Order Processing"-->
+					<!--			position="0" />-->
+					<!--	</com:lanes>-->
+					<!--</com:ProcessFlow>-->
+				</IconTabFilter>
+			</items>
+		</IconTabBar>
+	</Page>
+</mvc:View>

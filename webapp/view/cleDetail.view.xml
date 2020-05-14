@@ -1,0 +1,212 @@
+<mvc:View controllerName="report.WorkFlowReport.controller.Detail"
+	xmlns="sap.m" 
+	xmlns:f="sap.ui.layout.form"
+	xmlns:com="sap.suite.ui.commons"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:t="sap.ui.table">
+	<Page showHeader="false">
+		<subHeader>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button icon="sap-icon://full-screen" type="Transparent" visible="{=!${/appProperties/fullScreen}}" press="toggleFullScreen" />
+				<Button icon="sap-icon://exit-full-screen" type="Transparent" visible="{/appProperties/fullScreen}" press="toggleFullScreen" />
+				<Button icon="sap-icon://decline" type="Transparent" press="onCloseDetailPress" />
+			</OverflowToolbar>
+		</subHeader>
+		<Panel class="sapUiResponsiveMargin">
+			<Title level="H6" text="收款清账流程{/document}" />
+		</Panel>
+		<!--<Input></Input>-->
+		<IconTabBar class="sapUiSmallMarginBottom sapUiResponsiveContentPadding">
+			<items>
+				<IconTabFilter text="抬头">
+					<f:SimpleForm minWidth="1024" maxContainerCols="2" layout="ResponsiveGridLayout">
+						<Label text="申请日期"/>
+						<Text text="{path: '/CLEHeader/APPLICATIONDATE', formatter: '.date'}"/>
+						<Label text="申请人"/>
+						<Text text="{/CLEHeader/APPLICANT}"/>
+						<Label text="公司代码"/>
+						<Text text="{/CLEHeader/BUKRS}"/>
+						<Label text="到期日"/>
+						<Text text="{path: '/CLEHeader/NETDUEDATE', formatter: '.date'}"/>
+						<Label text="客户"/>
+						<Text text="{/CLEHeader/CUSTOMER}"/>
+						<Label text="交易货币"/>
+						<Text text="{/CLEHeader/TRANSCURRENCY}"/>
+						<Label text="清账货币"/>
+						<Text text="{/CLEHeader/CLEARCURRENCY}"/>
+						<Label text="备注"/>
+						<Text text="{/CLEHeader/NOTE}"/>
+						<Label text="会计凭证号"/>
+						<Text text="{/CLEHeader/ACCOUNTINGDOCUMENT}"/>
+						<Label text="会计公司"/>
+						<Text text="{/CLEHeader/COMPANYCODE}"/>
+						<Label text="会计年度"/>
+						<Text text="{/CLEHeader/FISCALYEAR}"/>
+					</f:SimpleForm>
+				</IconTabFilter>
+				<IconTabFilter text="明细">
+					<t:Table rows="{/CLEItem}" 
+						class="sapFDynamicPageAlignContent" 
+						selectionMode="None">
+						<t:columns>
+							<t:Column label="行号" hAlign="Center" width="3rem">
+								<t:template>
+									<Text text="{FLOWITEM}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="客户" hAlign="Center" width="7rem">
+								<t:template>
+									<Text text="{CUSTOMER}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="客户简称" hAlign="Center" width="10rem">
+								<t:template>
+									<Text text="{SEARCHTERM1}" maxLines="1" tooltip="{MAKTX}" />
+								</t:template>
+							</t:Column>
+							<t:Column label="会计凭证号" hAlign="Center" width="6rem">
+								<t:template>
+									<Text text="{ACCOUNTINGDOCUMENT}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="总账科目" hAlign="Center" width="5rem">
+								<t:template>
+									<Text text="{GLACCOUNT}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="科目描述" hAlign="Center" width="9rem">
+								<t:template>
+									<Text text="{GLACCOUNTNAME}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="特别总账标识" hAlign="Center" width="7rem">
+								<t:template>
+									<Text text="{SG}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="分配" hAlign="Center" width="5rem">
+								<t:template>
+									<Text text="{ASSIGNMENTRE}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="文本" hAlign="Center" width="6rem">
+								<t:template>
+									<Text text="{DOCUMENTITEMTEXT}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="过账日期" hAlign="Center" width="6rem">
+								<t:template>
+									<Text text="{path: 'POSTINGDATE', formatter: '.date'}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="到期日" hAlign="Center" width="6rem">
+								<t:template>
+									<Text text="{path: 'NETDUEDATE', formatter: '.date'}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="交易金额" hAlign="Center" width="6rem">
+								<t:template>
+									<Text text="{TRANSCURR}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							
+							<t:Column label="交易货币" hAlign="Center" width="5rem">
+								<t:template>
+									<Text text="{TRANSCURRENCY}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="汇率" hAlign="Center" width="6rem">
+								<t:template>
+									<Text text="{RATE}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="本币金额" hAlign="Center" width="6rem">
+								<t:template>
+									<Text text="{COMPANYCODECURR}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="清账金额" hAlign="Center" width="6rem">
+								<t:template>
+									<Text text="{CLEARCURR}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="清账货币" hAlign="Center" width="6rem">
+								<t:template>
+									<Text text="{CLEARCURRENCY}" maxLines="1" />
+								</t:template>
+							</t:Column>
+						</t:columns>
+					</t:Table>
+				</IconTabFilter>
+				<IconTabFilter text="审批日志">
+					<IconTabBar class="sapUiResponsiveContentPadding" items="{/WORKFLOWLOG}">
+						<items>
+							<IconTabFilter icon="sap-icon://heatmap-chart"
+								iconColor="Positive" design="Horizontal"
+								text="{parts:[{path:'FLOWID'},
+										{path:'STARTCOMPANY'},
+										{path:'NODEID'},
+										{path:'SUBNODEID'}],
+										formatter:'.setNodeDescription'}">
+								<Table>
+									<columns>
+										<Column>
+											<Text text="审批人" />
+										</Column>
+										<Column demandPopin="true" minScreenWidth="Tablet"
+											popinDisplay="Inline">
+											<Text text="审批结果" />
+										</Column>
+										<Column demandPopin="true" minScreenWidth="Tablet"
+											popinDisplay="Inline">
+											<Text text="审核意见" />
+										</Column>
+										<Column demandPopin="true" minScreenWidth="Tablet"
+											popinDisplay="Inline">
+											<Text text="审核日期" />
+										</Column>
+									</columns>
+									<items>
+										<ColumnListItem>
+											<cells>
+												<Text text="{ACCOUNT}" />
+												<Text text="{SUGGESTION}" />
+												<Text text="{RESULT}" />
+												<Text text="{path: 'APPROVALDATE', formatter: '.date'}" />
+											</cells>
+										</ColumnListItem>
+									</items>
+								</Table>
+							</IconTabFilter>
+						</items>
+					</IconTabBar>
+					<!--<com:ProcessFlow-->
+					<!--	scrollable="false"-->
+					<!--	foldedCorners="true">-->
+					<!--	<com:nodes>-->
+					<!--		<com:ProcessFlowNode-->
+					<!--			laneId="0"-->
+					<!--			nodeId="1"-->
+					<!--			title="Sales Order 1"-->
+					<!--			titleAbbreviation="SO 1"-->
+					<!--			children="1"-->
+					<!--			state="Positive"-->
+					<!--			stateText="审批结果"-->
+					<!--			texts="2"-->
+					<!--			highlighted="false"-->
+					<!--			focused="true" />-->
+					<!--	</com:nodes>-->
+					<!--	<com:lanes>-->
+					<!--		<com:ProcessFlowLaneHeader-->
+					<!--			laneId="1"-->
+					<!--			iconSrc="sap-icon://order-status"-->
+					<!--			text="Order Processing"-->
+					<!--			position="0" />-->
+					<!--	</com:lanes>-->
+					<!--</com:ProcessFlow>-->
+				</IconTabFilter>
+			</items>
+		</IconTabBar>
+	</Page>
+</mvc:View>

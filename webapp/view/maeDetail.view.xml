@@ -1,0 +1,144 @@
+<mvc:View controllerName="report.WorkFlowReport.controller.Detail"
+	xmlns="sap.m" 
+	xmlns:f="sap.ui.layout.form"
+	xmlns:com="sap.suite.ui.commons"
+	xmlns:mvc="sap.ui.core.mvc">
+	<Page showHeader="false">
+		<subHeader>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button icon="sap-icon://full-screen" type="Transparent" visible="{=!${/appProperties/fullScreen}}" press="toggleFullScreen" />
+				<Button icon="sap-icon://exit-full-screen" type="Transparent" visible="{/appProperties/fullScreen}" press="toggleFullScreen" />
+				<Button icon="sap-icon://decline" type="Transparent" press="onCloseDetailPress" />
+			</OverflowToolbar>
+		</subHeader>
+		<Panel class="sapUiResponsiveMargin">
+			<Title level="H6" text="物料扩充流程{/document}" />
+		</Panel>
+		<IconTabBar class="sapUiSmallMarginBottom sapUiResponsiveContentPadding">
+			<items>
+				<IconTabFilter text="抬头">
+					<f:SimpleForm minWidth="1024" maxContainerCols="2" layout="ResponsiveGridLayout">
+						<Label text="申请类型"/>
+						<Text text="{/MATHeader/APP_TYPE}"/>
+						<Label text="申请日期时间"/>
+						<Text text="{/MATHeader/CREATEDATETIME}"/>
+						<Label text="申请单状态"/>
+						<Text text="{/MATHeader/STATUS}"/>
+						<Label text="申请人"/>
+						<Text text="{/MATHeader/DEMANDER}"/>
+						<Label text="申请部门"/>
+						<Text text="{/MATHeader/DEMDEPART}"/>
+						<Label text="公司"/>
+						<Text text="{/MATHeader/BUKRS}"/>
+						<Label text="填单人"/>
+						<Text text="{/MATHeader/ERNAM}"/>
+					</f:SimpleForm>
+				</IconTabFilter>
+				<IconTabFilter text="明细">
+					<Table inset="false" items="{/MATItem}" class="sapFDynamicPageAlignContent" width="auto">
+						<columns>
+							<Column hAlign="Center" width="3rem" >
+								<Label text="行号"/>
+							</Column>
+							<Column hAlign="Center" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
+								<Label text="物料号" required="true" />
+							</Column>
+							<Column hAlign="Center" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
+								<Label text="物料描述" />
+							</Column>
+							<Column hAlign="Center">
+								<Label text="供应商简称" />
+							</Column>
+							<Column hAlign="Center">
+								<Label text="机种/产品" />
+							</Column>
+							<Column hAlign="Center">
+								<Label text="备注" />
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<cells>
+									<Text text="{APPLINE}" />
+									<Text text="{NEW_MATNR}" />
+									<Text text="{NEW_MAKTX}" />
+									<Text text="{SORTL}" />
+									<Text text="{PRODUCT}" />
+									<Text text="{REGREMARK}" />
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</IconTabFilter>
+				<IconTabFilter text="审批日志">
+					<IconTabBar class="sapUiResponsiveContentPadding" items="{/WORKFLOWLOG}">
+						<items>
+							<IconTabFilter icon="sap-icon://heatmap-chart"
+								iconColor="Positive" design="Horizontal"
+								text="{parts:[{path:'FLOWID'},
+									{path:'STARTCOMPANY'},
+									{path:'NODEID'},
+									{path:'SUBNODEID'}],
+									formatter:'.setNodeDescription'}">
+								<Table>
+									<columns>
+										<Column>
+											<Text text="审批人" />
+										</Column>
+										<Column demandPopin="true" minScreenWidth="Tablet"
+											popinDisplay="Inline">
+											<Text text="审批结果" />
+										</Column>
+										<Column demandPopin="true" minScreenWidth="Tablet"
+											popinDisplay="Inline">
+											<Text text="审核意见" />
+										</Column>
+										<Column demandPopin="true" minScreenWidth="Tablet"
+											popinDisplay="Inline">
+											<Text text="审核日期" />
+										</Column>
+									</columns>
+									<items>
+										<ColumnListItem>
+											<cells>
+												<Text text="{ACCOUNT}" />
+												<Text text="{SUGGESTION}" />
+												<Text text="{RESULT}" />
+												<Text text="{path: 'APPROVALDATE', formatter: '.date'}" />
+											</cells>
+										</ColumnListItem>
+									</items>
+								</Table>
+							</IconTabFilter>
+						</items>
+					</IconTabBar>
+					<!--<com:ProcessFlow-->
+					<!--	scrollable="false"-->
+					<!--	foldedCorners="true">-->
+					<!--	<com:nodes>-->
+					<!--		<com:ProcessFlowNode-->
+					<!--			laneId="0"-->
+					<!--			nodeId="1"-->
+					<!--			title="Sales Order 1"-->
+					<!--			titleAbbreviation="SO 1"-->
+					<!--			children="1"-->
+					<!--			state="Positive"-->
+					<!--			stateText="审批结果"-->
+					<!--			texts="2"-->
+					<!--			highlighted="false"-->
+					<!--			focused="true" />-->
+					<!--	</com:nodes>-->
+					<!--	<com:lanes>-->
+					<!--		<com:ProcessFlowLaneHeader-->
+					<!--			laneId="1"-->
+					<!--			iconSrc="sap-icon://order-status"-->
+					<!--			text="Order Processing"-->
+					<!--			position="0" />-->
+					<!--	</com:lanes>-->
+					<!--</com:ProcessFlow>-->
+				</IconTabFilter>
+			</items>
+		</IconTabBar>
+	</Page>
+</mvc:View>

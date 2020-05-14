@@ -1,0 +1,187 @@
+<mvc:View controllerName="report.WorkFlowReport.controller.Detail"
+	xmlns="sap.m" 
+	xmlns:f="sap.ui.layout.form"
+	xmlns:com="sap.suite.ui.commons"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:t="sap.ui.table">
+	<Page showHeader="false">
+		<subHeader>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button icon="sap-icon://full-screen" type="Transparent" visible="{=!${/appProperties/fullScreen}}" press="toggleFullScreen" />
+				<Button icon="sap-icon://exit-full-screen" type="Transparent" visible="{/appProperties/fullScreen}" press="toggleFullScreen" />
+				<Button icon="sap-icon://decline" type="Transparent" press="onCloseDetailPress" />
+			</OverflowToolbar>
+		</subHeader>
+		<Panel class="sapUiResponsiveMargin">
+			<Title level="H6" text="采购申请流程{/document}" />
+		</Panel>
+		<!--<Input></Input>-->
+		<IconTabBar class="sapUiSmallMarginBottom sapUiResponsiveContentPadding">
+			<items>
+				<IconTabFilter text="抬头">
+					<f:SimpleForm minWidth="1024" maxContainerCols="2" layout="ResponsiveGridLayout">
+						<Label text="采购申请单号"/>
+						<Text text="{/REQHeader/PURREQ_NO}"/>
+						<Label text="采购申请类型"/>
+						<Text text="{/REQHeader/PURREQ_TYPE}"/>
+						<Label text="创建人"/>
+						<Text text="{/REQHeader/CREATER}"/>
+						<Label text="创建日期"/>
+						<Text text="{/REQHeader/CREATE_DATE}"/>
+					</f:SimpleForm>
+				</IconTabFilter>
+				<IconTabFilter text="明细">
+					<t:Table rows="{/REQItem}" 
+						class="sapFDynamicPageAlignContent" 
+						selectionMode="None">
+						<t:columns>
+							<t:Column label="行号" hAlign="Center" width="3rem">
+								<t:template>
+									<Text text="{path: 'PURREQ_ITEM', formatter: '.deleteLeftZero'}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="科目分配类型" hAlign="Center" width="7rem">
+								<t:template>
+									<Text text="{SUB_ASSTYPE}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="项目类型" hAlign="Center" width="5rem">
+								<t:template>
+									<Text text="{PROJECT_TYPE}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="物料" hAlign="Center" width="9rem">
+								<t:template>
+									<Text text="{MATERIAL}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="物料描述" hAlign="Center" width="9rem">
+								<t:template>
+									<Text text="{MATERIAL_DES}" maxLines="1" tooltip="{MATERIAL_DES}" />
+								</t:template>
+							</t:Column>
+							<t:Column label="数量" hAlign="Center" width="5rem">
+								<t:template>
+									<Text text="{QUANTITY}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="单位" hAlign="Center" width="3rem">
+								<t:template>
+									<Text text="{UNIT}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="评估价格" hAlign="Center" width="6rem">
+								<t:template>
+									<Text text="{ACCESSPRICE}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="金额" hAlign="Center" width="6rem">
+								<t:template>
+									<Text text="{AMOUNT}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="货币" hAlign="Center" width="5rem">
+								<t:template>
+									<Text text="{CURRENCY}" />
+								</t:template>
+							</t:Column>
+							<t:Column label="工厂" hAlign="Center" width="4rem">
+								<t:template>
+									<Text text="{PLANT}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="交货日期" hAlign="Center" width="6rem">
+								<t:template>
+									<Text text="{path: 'DELIVERYDATE', formatter: '.date'}" maxLines="1" />
+								</t:template>
+							</t:Column>
+							<t:Column label="申请人" hAlign="Center" width="6rem">
+								<t:template>
+									<Text text="{APPLIER}" maxLines="1" tooltip="{APPLIER}" />
+								</t:template>
+							</t:Column>
+							<t:Column label="变更说明" hAlign="Center" width="6rem">
+								<t:template>
+									<Text text="{CHANGE_INS}" maxLines="1" tooltip="{CHANGE_INS}" />
+								</t:template>
+							</t:Column>
+							<t:Column label="公司" hAlign="Center" width="3rem">
+								<t:template>
+									<Text text="{COMPANY}" maxLines="1" />
+								</t:template>
+							</t:Column>
+						</t:columns>
+					</t:Table>
+				</IconTabFilter>
+				<IconTabFilter text="审批日志">
+					<IconTabBar class="sapUiResponsiveContentPadding" items="{/WORKFLOWLOG}">
+						<items>
+							<IconTabFilter icon="sap-icon://heatmap-chart"
+								iconColor="Positive" design="Horizontal"
+								text="{parts:[{path:'FLOWID'},
+									{path:'STARTCOMPANY'},
+									{path:'NODEID'},
+									{path:'SUBNODEID'}],
+									formatter:'.setNodeDescription'}">
+								<Table>
+									<columns>
+										<Column>
+											<Text text="审批人" />
+										</Column>
+										<Column demandPopin="true" minScreenWidth="Tablet"
+											popinDisplay="Inline">
+											<Text text="审批结果" />
+										</Column>
+										<Column demandPopin="true" minScreenWidth="Tablet"
+											popinDisplay="Inline">
+											<Text text="审核意见" />
+										</Column>
+										<Column demandPopin="true" minScreenWidth="Tablet"
+											popinDisplay="Inline">
+											<Text text="审核日期" />
+										</Column>
+									</columns>
+									<items>
+										<ColumnListItem>
+											<cells>
+												<Text text="{ACCOUNT}" />
+												<Text text="{SUGGESTION}" />
+												<Text text="{RESULT}" />
+												<Text text="{path: 'APPROVALDATE', formatter: '.date'}" />
+											</cells>
+										</ColumnListItem>
+									</items>
+								</Table>
+							</IconTabFilter>
+						</items>
+					</IconTabBar>
+					<!--<com:ProcessFlow-->
+					<!--	scrollable="false"-->
+					<!--	foldedCorners="true">-->
+					<!--	<com:nodes>-->
+					<!--		<com:ProcessFlowNode-->
+					<!--			laneId="0"-->
+					<!--			nodeId="1"-->
+					<!--			title="Sales Order 1"-->
+					<!--			titleAbbreviation="SO 1"-->
+					<!--			children="1"-->
+					<!--			state="Positive"-->
+					<!--			stateText="审批结果"-->
+					<!--			texts="2"-->
+					<!--			highlighted="false"-->
+					<!--			focused="true" />-->
+					<!--	</com:nodes>-->
+					<!--	<com:lanes>-->
+					<!--		<com:ProcessFlowLaneHeader-->
+					<!--			laneId="1"-->
+					<!--			iconSrc="sap-icon://order-status"-->
+					<!--			text="Order Processing"-->
+					<!--			position="0" />-->
+					<!--	</com:lanes>-->
+					<!--</com:ProcessFlow>-->
+				</IconTabFilter>
+			</items>
+		</IconTabBar>
+	</Page>
+</mvc:View>

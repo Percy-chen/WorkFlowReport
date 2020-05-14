@@ -1,0 +1,100 @@
+<mvc:View controllerName="report.WorkFlowReport.controller.Detail"
+	xmlns="sap.m" 
+	xmlns:f="sap.ui.layout.form"
+	xmlns:com="sap.suite.ui.commons"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:t="sap.ui.table">
+	<Page showHeader="false">
+		<subHeader>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button icon="sap-icon://full-screen" type="Transparent" visible="{=!${/appProperties/fullScreen}}" press="toggleFullScreen" />
+				<Button icon="sap-icon://exit-full-screen" type="Transparent" visible="{/appProperties/fullScreen}" press="toggleFullScreen" />
+				<Button icon="sap-icon://decline" type="Transparent" press="onCloseDetailPress" />
+			</OverflowToolbar>
+		</subHeader>
+		<Panel class="sapUiResponsiveMargin">
+			<Title level="H6" text="超信贷审批流程{/document}" />
+		</Panel>
+		<!--<Input></Input>-->
+		<IconTabBar class="sapUiSmallMarginBottom sapUiResponsiveContentPadding">
+			<items>
+				<IconTabFilter text="抬头">
+					<f:SimpleForm minWidth="1024" maxContainerCols="2" layout="ResponsiveGridLayout">
+						<Label text="交货单号"/>
+						<Text text="{/SOCREDIT/DELIVERDOCUMENT}"/>
+						<Label text="业务员"/>
+						<Text text="{/SOCREDIT/SALESMAN}"/>
+						<Label text="申请人"/>
+						<Text text="{/SOCREDIT/APPLICANT}"/>
+						<Label text="创建日期"/>
+						<Text text="{/SOCREDIT/CREATEDATE}"/>
+						<Label text="公司代码"/>
+						<Text text="{/SOCREDIT/COMPANYCODE}"/>
+						<Label text="交易货币"/>
+						<Text text="{/SOCREDIT/TRANSCURRENCY}"/>
+						<Label text="信用額度"/>
+						<Text text="{/SOCREDIT/CREDITLIMITCURR}"/>
+						<Label text="销货金额"/>
+						<Text text="{/SOCREDIT/NETAMOUNT}"/>
+						<Label text="应收账款"/>
+						<Text text="{/SOCREDIT/COMPCURR}"/>
+						<Label text="信用余额"/>
+						<Text text="{/SOCREDIT/CREDITBALANCE}"/>
+						<Label text="逾期应收款"/>
+						<Text text="{/SOCREDIT/OVERDUECURR}"/>
+						<Label text="客户"/>
+						<Text text="{/SOCREDIT/SOLDTOPARTY}"/>
+						<Label text="付款条件"/>
+						<Text text="{/SOCREDIT/PAYMENTTERMS}"/>
+						<Label text="原因说明"/>
+						<Text text="{/SOCREDIT/REASON}"/>
+					</f:SimpleForm>
+				</IconTabFilter>
+				<IconTabFilter text="审批日志">
+					<IconTabBar class="sapUiResponsiveContentPadding" items="{/WORKFLOWLOG}">
+						<items>
+							<IconTabFilter icon="sap-icon://heatmap-chart"
+								iconColor="Positive" design="Horizontal"
+								text="{parts:[{path:'FLOWID'},
+									{path:'STARTCOMPANY'},
+									{path:'NODEID'},
+									{path:'SUBNODEID'}],
+									formatter:'.setNodeDescription'}">
+								<Table>
+									<columns>
+										<Column>
+											<Text text="审批人" />
+										</Column>
+										<Column demandPopin="true" minScreenWidth="Tablet"
+											popinDisplay="Inline">
+											<Text text="审批结果" />
+										</Column>
+										<Column demandPopin="true" minScreenWidth="Tablet"
+											popinDisplay="Inline">
+											<Text text="审核意见" />
+										</Column>
+										<Column demandPopin="true" minScreenWidth="Tablet"
+											popinDisplay="Inline">
+											<Text text="审核日期" />
+										</Column>
+									</columns>
+									<items>
+										<ColumnListItem>
+											<cells>
+												<Text text="{ACCOUNT}" />
+												<Text text="{SUGGESTION}" />
+												<Text text="{RESULT}" />
+												<Text text="{path: 'APPROVALDATE', formatter: '.date'}" />
+											</cells>
+										</ColumnListItem>
+									</items>
+								</Table>
+							</IconTabFilter>
+						</items>
+					</IconTabBar>
+				</IconTabFilter>
+			</items>
+		</IconTabBar>
+	</Page>
+</mvc:View>

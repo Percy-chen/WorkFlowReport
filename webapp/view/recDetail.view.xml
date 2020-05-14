@@ -1,0 +1,137 @@
+<mvc:View controllerName="report.WorkFlowReport.controller.Detail"
+	xmlns="sap.m" 
+	xmlns:f="sap.ui.layout.form"
+	xmlns:com="sap.suite.ui.commons"
+	xmlns:mvc="sap.ui.core.mvc">
+	<Page showHeader="false">
+		<subHeader>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button icon="sap-icon://full-screen" type="Transparent" visible="{=!${/appProperties/fullScreen}}" press="toggleFullScreen" />
+				<Button icon="sap-icon://exit-full-screen" type="Transparent" visible="{/appProperties/fullScreen}" press="toggleFullScreen" />
+				<Button icon="sap-icon://decline" type="Transparent" press="onCloseDetailPress" />
+			</OverflowToolbar>
+		</subHeader>
+		<Panel class="sapUiResponsiveMargin">
+			<Title level="H6" text="收款申请流程{/document}" />
+		</Panel>
+		<!--<Input></Input>-->
+		<IconTabBar class="sapUiSmallMarginBottom sapUiResponsiveContentPadding">
+			<items>
+				<IconTabFilter text="抬头">
+					<f:SimpleForm minWidth="1024" maxContainerCols="2" layout="ResponsiveGridLayout">
+						<Label text="申请日期时间"/>
+						<Text text="{/RECEIPT/APPLICATIONDATE}"/>
+						<Label text="申请人"/>
+						<Text text="{/RECEIPT/APPLICANT}"/>
+						<Label text="公司(代码)"/>
+						<Text text="{/RECEIPT/COMYANY}"/>
+						<Label text="付款银行总账科目"/>
+						<Text text="{/RECEIPT/BANKACCOUNT}"/>
+						<Label text="客户"/>
+						<Text text="{/RECEIPT/CUSTOMER}"/>
+						<Label text="业务员"/>
+						<Text text="{/RECEIPT/SALEMAN}"/>
+						<Label text="分配"/>
+						<Text text="{/RECEIPT/ASSIGNMENT}"/>
+						<Label text="到期日"/>
+						<Text text="{/RECEIPT/NETDUEDATE}"/>
+						<Label text="票据编号"/>
+						<Text text="{/RECEIPT/BILLNUMBER}"/>
+						<Label text="货币"/>
+						<Text text="{/RECEIPT/CURRENCY}"/>
+						<Label text="汇率"/>
+						<Text text="{/RECEIPT/RATE}"/>
+						<Label text="收款金额(交易)"/>
+						<Text text="{/RECEIPT/RAMOUNTT}"/>
+						<Label text="收款金额(本币)"/>
+						<Text text="{/RECEIPT/RAMOUNTL}"/>
+						<Label text="国内手续费(交易)"/>
+						<Text text="{/RECEIPT/CHARGEINLANDT}"/>
+						<Label text="国内手续费(本币)"/>
+						<Text text="{/RECEIPT/CHARGEINLANDL}"/>
+						<Label text="国外手续费(交易)"/>
+						<Text text="{/RECEIPT/CHARGEFOREIGNT}"/>
+						<Label text="国外手续费(本币)"/>
+						<Text text="{/RECEIPT/CHARGEFOREIGNL}"/>
+						<Label text="备注"/>
+						<Text text="{/RECEIPT/NOTE}"/>
+						<Label text="会计凭证号"/>
+						<Text text="{/RECEIPT/ACCOUNTINGDOCUMENT}"/>
+						<Label text="会计公司"/>
+						<Text text="{/RECEIPT/COMPANYCODE}"/>
+						<Label text="会计年度"/>
+						<Text text="{/RECEIPT/FISCALYEAR}"/>
+					</f:SimpleForm>
+				</IconTabFilter>
+				<IconTabFilter text="审批日志">
+					<IconTabBar class="sapUiResponsiveContentPadding" items="{/WORKFLOWLOG}">
+						<items>
+							<IconTabFilter icon="sap-icon://heatmap-chart"
+								iconColor="Positive" design="Horizontal"
+								text="{parts:[{path:'FLOWID'},
+									{path:'STARTCOMPANY'},
+									{path:'NODEID'},
+									{path:'SUBNODEID'}],
+									formatter:'.setNodeDescription'}">
+								<Table>
+									<columns>
+										<Column>
+											<Text text="审批人" />
+										</Column>
+										<Column demandPopin="true" minScreenWidth="Tablet"
+											popinDisplay="Inline">
+											<Text text="审批结果" />
+										</Column>
+										<Column demandPopin="true" minScreenWidth="Tablet"
+											popinDisplay="Inline">
+											<Text text="审核意见" />
+										</Column>
+										<Column demandPopin="true" minScreenWidth="Tablet"
+											popinDisplay="Inline">
+											<Text text="审核日期" />
+										</Column>
+									</columns>
+									<items>
+										<ColumnListItem>
+											<cells>
+												<Text text="{ACCOUNT}" />
+												<Text text="{SUGGESTION}" />
+												<Text text="{RESULT}" />
+												<Text text="{path: 'APPROVALDATE', formatter: '.date'}" />
+											</cells>
+										</ColumnListItem>
+									</items>
+								</Table>
+							</IconTabFilter>
+						</items>
+					</IconTabBar>
+					<!--<com:ProcessFlow-->
+					<!--	scrollable="false"-->
+					<!--	foldedCorners="true">-->
+					<!--	<com:nodes>-->
+					<!--		<com:ProcessFlowNode-->
+					<!--			laneId="0"-->
+					<!--			nodeId="1"-->
+					<!--			title="Sales Order 1"-->
+					<!--			titleAbbreviation="SO 1"-->
+					<!--			children="1"-->
+					<!--			state="Positive"-->
+					<!--			stateText="审批结果"-->
+					<!--			texts="2"-->
+					<!--			highlighted="false"-->
+					<!--			focused="true" />-->
+					<!--	</com:nodes>-->
+					<!--	<com:lanes>-->
+					<!--		<com:ProcessFlowLaneHeader-->
+					<!--			laneId="1"-->
+					<!--			iconSrc="sap-icon://order-status"-->
+					<!--			text="Order Processing"-->
+					<!--			position="0" />-->
+					<!--	</com:lanes>-->
+					<!--</com:ProcessFlow>-->
+				</IconTabFilter>
+			</items>
+		</IconTabBar>
+	</Page>
+</mvc:View>

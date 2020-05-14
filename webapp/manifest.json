@@ -1,0 +1,597 @@
+{
+	"_version": "1.12.0",
+	"sap.app": {
+		"id": "report.WorkFlowReport",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"sourceTemplate": {
+			"id": "ui5template.basicSAPUI5ApplicationProject",
+			"version": "1.40.12"
+		},
+		"dataSources": {
+			"WORKFLOWLOG.xsodata": {
+				"uri": "/destinations/APLEXHANA/WORKFLOWLOG.xsodata/",
+				"type": "OData",
+				"settings": {
+					"annotations": []
+				}
+			},
+			"MATERIAL.xsodata": {
+				"uri": "/destinations/APLEXHANA/MATERIAL.xsodata/",
+				"type": "OData",
+				"settings": {
+					"annotations": []
+				}
+			},
+			"ECROData.xsodata": {
+				"uri": "/destinations/APLEXHANA/ECROData.xsodata/",
+				"type": "OData",
+				"settings": {
+					"annotations": []
+				}
+			},
+			"MATAPPRE.xsodata": {
+				"uri": "/destinations/APLEXHANA/MATAPPRE.xsodata/",
+				"type": "OData",
+				"settings": {
+					"annotations": []
+				}
+			},
+			"ECNODATA.xsodata": {
+				"uri": "/destinations/APLEXHANA/ECNODATA.xsodata/",
+				"type": "OData",
+				"settings": {
+					"annotations": []
+				}
+			},
+			"ECNIODATA.xsodata": {
+				"uri": "/destinations/APLEXHANA/ECNIODATA.xsodata/",
+				"type": "OData",
+				"settings": {
+					"annotations": []
+				}
+			},
+			"RECEIPT.xsodata": {
+				"uri": "/destinations/APLEXHANA/RECEIPT.xsodata/",
+				"type": "OData",
+				"settings": {
+					"annotations": []
+				}
+			},
+			"CLEARRE.xsodata": {
+				"uri": "/destinations/APLEXHANA/CLEARRE.xsodata/",
+				"type": "OData",
+				"settings": {
+					"annotations": []
+				}
+			},
+			"PAYMENT.xsodata": {
+				"uri": "/destinations/APLEXHANA/PAYMENT.xsodata/",
+				"type": "OData",
+				"settings": {
+					"annotations": []
+				}
+			},
+			"EXPENSE.xsodata": {
+				"uri": "/destinations/APLEXHANA/EXPENSE.xsodata/",
+				"type": "OData",
+				"settings": {
+					"annotations": []
+				}
+			},
+			"SOCREDIT.xsodata": {
+				"uri": "/destinations/APLEXHANA/SOCREDIT.xsodata/",
+				"type": "OData",
+				"settings": {
+					"annotations": []
+				}
+			},
+			"WORKFLOWHEAD.xsodata": {
+				"uri": "/destinations/APLEXHANA/WORKFLOWHEAD.xsodata/",
+				"type": "OData",
+				"settings": {
+					"annotations": []
+				}
+			},
+			"PURCHASE.xsodata": {
+				"uri": "/destinations/APLEXHANA/PURCHASE.xsodata/",
+				"type": "OData",
+				"settings": {
+					"annotations": []
+				}
+			},
+			"PURREQ.xsodata": {
+				"uri": "/destinations/APLEXHANA/PURREQ.xsodata/",
+				"type": "OData",
+				"settings": {
+					"annotations": []
+				}
+			},
+			"WORKFLOWNAME.xsodata": {
+				"uri": "/destinations/APLEXHANA/WORKFLOWNAME.xsodata/",
+				"type": "OData",
+				"settings": {
+					"annotations": []
+				}
+			},
+			"WFNODENAME.xsodata": {
+				"uri": "/destinations/APLEXHANA/WFNODENAME.xsodata/",
+				"type": "OData",
+				"settings": {
+					"annotations": []
+				}
+			},
+			"EMPLOYEES.xsodata": {
+				"uri": "/destinations/APLEXHANA/EMPLOYEES.xsodata/",
+				"type": "OData",
+				"settings": {
+					"annotations": []
+				}
+			},
+			"assetTransfer.xsodata": {
+				"uri": "/destinations/APLEXHANA/assetTransfer.xsodata/",
+				"type": "OData",
+				"settings": {
+					"annotations": []
+				}
+			}
+		},
+		"crossNavigation": {
+			"inbounds": {}
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"fullWidth": true
+	},
+	"sap.ui5": {
+		"flexEnabled": false,
+		"rootView": {
+			"viewName": "report.WorkFlowReport.view.App",
+			"type": "XML",
+			"async": true,
+			"id": "App"
+		},
+		"dependencies": {
+			"minUI5Version": "1.65.6",
+			"libs": {
+				"sap.ui.layout": {},
+				"sap.ui.core": {},
+				"sap.m": {},
+				"sap.f": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "report.WorkFlowReport.i18n.i18n"
+				}
+			},
+			"WORKFLOWLOG": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request",
+					"useBatch": true
+				},
+				"dataSource": "WORKFLOWLOG.xsodata",
+				"preload": true
+			},
+			"MATHeader": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request",
+					"useBatch": true
+				},
+				"dataSource": "MATERIAL.xsodata",
+				"preload": true
+			},
+			"ECRHeader": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request",
+					"useBatch": true
+				},
+				"dataSource": "ECROData.xsodata",
+				"preload": true
+			},
+			"MARHeader": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request",
+					"useBatch": true
+				},
+				"dataSource": "MATAPPRE.xsodata",
+				"preload": true
+			},
+			"ECN": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request",
+					"useBatch": true
+				},
+				"dataSource": "ECNODATA.xsodata",
+				"preload": true
+			},
+			"ECNI": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request",
+					"useBatch": true
+				},
+				"dataSource": "ECNIODATA.xsodata",
+				"preload": true
+			},
+			"RECEIPT": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request",
+					"useBatch": true
+				},
+				"dataSource": "RECEIPT.xsodata",
+				"preload": true
+			},
+			"CLEHeader": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request",
+					"useBatch": true
+				},
+				"dataSource": "CLEARRE.xsodata",
+				"preload": true
+			},
+			"PAYHeader": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request",
+					"useBatch": true
+				},
+				"dataSource": "PAYMENT.xsodata",
+				"preload": true
+			},
+			"EXPHeader": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request",
+					"useBatch": true
+				},
+				"dataSource": "EXPENSE.xsodata",
+				"preload": true
+			},
+			"SOCREDIT": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request",
+					"useBatch": true
+				},
+				"dataSource": "SOCREDIT.xsodata",
+				"preload": true
+			},
+			"userAttributes": {
+				"type": "sap.ui.model.json.JSONModel",
+				"settings": {},
+				"preload": false,
+				"uri": "/services/userapi/attributes"
+			},
+			"WORKFLOWHEAD": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request",
+					"useBatch": true
+				},
+				"dataSource": "WORKFLOWHEAD.xsodata",
+				"preload": true
+			},
+			"PURHeader": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "TwoWay",
+					"defaultCountMode": "Request",
+					"deferredGroups": [
+						"getPO"
+					],
+					"useBatch": true
+				},
+				"dataSource": "PURCHASE.xsodata",
+				"preload": true
+			},
+			"REQHeader": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "TwoWay",
+					"defaultCountMode": "Request",
+					"deferredGroups": [
+						"getPR"
+					],
+					"useBatch": true
+				},
+				"dataSource": "PURREQ.xsodata",
+				"preload": true
+			},
+			"WORKFLOWNAME": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request",
+					"useBatch": true
+				},
+				"dataSource": "WORKFLOWNAME.xsodata",
+				"preload": true
+			},
+			"WFNODENAME": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request",
+					"useBatch": true
+				},
+				"dataSource": "WFNODENAME.xsodata",
+				"preload": true
+			},
+			"EMPLOYEES": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request",
+					"useBatch": true
+				},
+				"dataSource": "EMPLOYEES.xsodata",
+				"preload": true
+			},
+			"assetTransfer": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request",
+					"useBatch": true
+				},
+				"dataSource": "assetTransfer.xsodata",
+				"preload": true
+			}
+		},
+		"resources": {
+			"css": [
+				{
+					"uri": "css/style.css"
+				}
+			]
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.f.routing.Router",
+				"viewType": "XML",
+				"async": true,
+				"viewPath": "report.WorkFlowReport.view",
+				"controlId": "layout",
+				"controlAggregation": "beginColumnPages",
+				"bypassed": {
+					"target": "notFound"
+				}
+			},
+			"routes": [
+				{
+					"pattern": "",
+					"name": "master",
+					"target": "master"
+				},
+				{
+					"pattern": "reqDetail",
+					"name": "reqDetail",
+					"target": "reqDetail"
+				},
+				{
+					"pattern": "ordDetail",
+					"name": "ordDetail",
+					"target": "ordDetail"
+				},
+				{
+					"pattern": "matDetail",
+					"name": "matDetail",
+					"target": "matDetail"
+				},
+				{
+					"pattern": "marDetail",
+					"name": "marDetail",
+					"target": "marDetail"
+				},
+				{
+					"pattern": "ecnDetail",
+					"name": "ecnDetail",
+					"target": "ecnDetail"
+				},
+				{
+					"pattern": "ecrDetail",
+					"name": "ecrDetail",
+					"target": "ecrDetail"
+				},
+				{
+					"pattern": "maeDetail",
+					"name": "maeDetail",
+					"target": "maeDetail"
+				},
+				{
+					"pattern": "macDetail",
+					"name": "macDetail",
+					"target": "macDetail"
+				},
+				{
+					"pattern": "recDetail",
+					"name": "recDetail",
+					"target": "recDetail"
+				},
+				{
+					"pattern": "cleDetail",
+					"name": "cleDetail",
+					"target": "cleDetail"
+				},
+				{
+					"pattern": "payDetail",
+					"name": "payDetail",
+					"target": "payDetail"
+				},
+				{
+					"pattern": "expDetail",
+					"name": "expDetail",
+					"target": "expDetail"
+				},
+				{
+					"pattern": "creDetail",
+					"name": "creDetail",
+					"target": "creDetail"
+				},
+				{
+					"pattern": "assetDetail",
+					"name": "assetDetail",
+					"target": "assetDetail"
+				}
+			],
+			"targets": {
+				"master": {
+					"viewName": "Master",
+					"viewLevel": 1,
+					"viewId": "master"
+				},
+				"reqDetail": {
+					"viewName": "reqDetail",
+					"viewId": "reqDetail",
+					"viewLevel": 1,
+					"controlAggregation": "midColumnPages"
+				},
+				"ordDetail": {
+					"viewName": "ordDetail",
+					"viewId": "ordDetail",
+					"viewLevel": 1,
+					"controlAggregation": "midColumnPages"
+				},
+				"matDetail": {
+					"viewName": "matDetail",
+					"viewId": "matDetail",
+					"viewLevel": 1,
+					"controlAggregation": "midColumnPages"
+				},
+				"marDetail": {
+					"viewName": "marDetail",
+					"viewId": "marDetail",
+					"viewLevel": 1,
+					"controlAggregation": "midColumnPages"
+				},
+				"ecnDetail": {
+					"viewName": "ecnDetail",
+					"viewId": "ecnDetail",
+					"viewLevel": 1,
+					"controlAggregation": "midColumnPages"
+				},
+				"ecrDetail": {
+					"viewName": "ecrDetail",
+					"viewId": "ecrDetail",
+					"viewLevel": 1,
+					"controlAggregation": "midColumnPages"
+				},
+				"maeDetail": {
+					"viewName": "maeDetail",
+					"viewId": "maeDetail",
+					"viewLevel": 1,
+					"controlAggregation": "midColumnPages"
+				},
+				"macDetail": {
+					"viewName": "macDetail",
+					"viewId": "macDetail",
+					"viewLevel": 1,
+					"controlAggregation": "midColumnPages"
+				},
+				"recDetail": {
+					"viewName": "recDetail",
+					"viewId": "recDetail",
+					"viewLevel": 1,
+					"controlAggregation": "midColumnPages"
+				},
+				"cleDetail": {
+					"viewName": "cleDetail",
+					"viewId": "cleDetail",
+					"viewLevel": 1,
+					"controlAggregation": "midColumnPages"
+				},
+				"payDetail": {
+					"viewName": "payDetail",
+					"viewId": "payDetail",
+					"viewLevel": 1,
+					"controlAggregation": "midColumnPages"
+				},
+				"expDetail": {
+					"viewName": "expDetail",
+					"viewId": "expDetail",
+					"viewLevel": 1,
+					"controlAggregation": "midColumnPages"
+				},
+				"creDetail": {
+					"viewName": "creDetail",
+					"viewId": "creDetail",
+					"viewLevel": 1,
+					"controlAggregation": "midColumnPages"
+				},
+				"assetDetail": {
+					"viewName": "assetDetail",
+					"viewId": "assetDetail",
+					"viewLevel": 1,
+					"controlAggregation": "midColumnPages"
+				}
+			}
+		}
+	},
+	"sap.platform.hcp": {
+		"uri": "webapp",
+		"_version": "1.1.0"
+	}
+}

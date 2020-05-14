@@ -1,0 +1,181 @@
+<mvc:View controllerName="report.WorkFlowReport.controller.Master"
+	xmlns="sap.m" 
+	xmlns:f="sap.f" 
+	xmlns:core="sap.ui.core"
+	xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:mvc="sap.ui.core.mvc">
+	<f:DynamicPage headerExpanded="true" showFooter="true">
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+				</f:heading>
+			</f:DynamicPageTitle>
+		</f:title>
+		<f:header>
+			<f:DynamicPageHeader pinnable="true">
+				<f:content>
+					<fb:FilterBar reset="onReset" search="onSearch" useToolbar="false">
+						<fb:filterGroupItems>
+							<fb:FilterGroupItem groupName="__$INTERNAL$" name="A" label="{i18n>ProcessDescription}" visibleInFilterBar="true">
+								<fb:control>
+									<MultiComboBox selectedKeys="{/searchParameter/FLOWID}">
+										<items>
+											<core:Item text="{i18n>MaterialCreate}" key="workflow_materialcreate" />
+											<core:Item text="{i18n>MaterialExpansion}" key="workflow_materialexpansion" />
+											<core:Item text="{i18n>MaterialModification}" key="workflow_materialchange" />
+											<core:Item text="{i18n>PRApplication}" key="materialapplyreturn" />
+											<core:Item text="{i18n>PurchaseOrder}" key="purchaseorder" />
+											<core:Item text="{i18n>PurchaseRequisition}" key="purchaseapply" />
+											<core:Item text="ECR" key="workflow_ecr" />
+											<core:Item text="ECN" key="workflow_ecn" />
+											<core:Item text="{i18n>CollectionApplication}" key="workflow_receipt" />
+											<core:Item text="{i18n>ReceiptClearing}" key="workflow_receiptclear" />
+											<core:Item text="{i18n>PaymentRequest}" key="workflow_payment" />
+											<core:Item text="{i18n>ExpenseAccount}" key="workflow_expense" />
+											<core:Item text="{i18n>ExcessCreditApproval}" key="workflow_salescredit" />
+											<core:Item text="{i18n>assetTransfer}" key="assettransfer" />
+										</items>
+									</MultiComboBox>
+								</fb:control>				
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem groupName="__$INTERNAL$" name="B" label="{i18n>CompanyCode}" visibleInFilterBar="true">
+								<fb:control>
+									<Input value="{/searchParameter/STARTCOMPANY}" />
+								</fb:control>				
+							</fb:FilterGroupItem>				
+							<fb:FilterGroupItem groupName="__$INTERNAL$" name="C" label="{i18n>ProcessNumber}" visibleInFilterBar="true">
+								<fb:control>
+									<Input value="{/searchParameter/DOCUMENT}" />
+								</fb:control>				
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem groupName="__$INTERNAL$" name="D" label="{i18n>DocumentNumber}" visibleInFilterBar="true">
+								<fb:control>
+									<Input value="{/searchParameter/APPNUM}" />
+								</fb:control>				
+							</fb:FilterGroupItem>
+							<fb:FilterGroupItem groupName="__$INTERNAL$" name="E" label="{i18n>Applicant}" visibleInFilterBar="true">
+								<fb:control>
+									<Input value="{/searchParameter/REQUESTER}" />
+								</fb:control>				
+							</fb:FilterGroupItem>
+						</fb:filterGroupItems>
+					</fb:FilterBar>
+				</f:content>
+			</f:DynamicPageHeader>
+		</f:header>
+		<f:content>
+			<IconTabBar select="onIconTabBarSelect" class="sapUiResponsiveContentPadding" showOverflowSelectList="true">
+				<items>
+					<!--<IconTabFilter-->
+					<!--	count="{=${/WORKFLOWHEADSet}.length}"-->
+					<!--	text="所有流程"-->
+					<!--	key="all" />-->
+					<!--<IconTabSeparator />-->
+					<IconTabFilter
+						text="{i18n>MySubmissionProcess}"
+						key="submit" />
+					<IconTabFilter
+						text="{i18n>MyApprovalProcess}"
+						key="approve" />
+					<IconTabFilter
+						text="ECR/ECN"
+						key="ec"
+						visible="{/ECVis}" />
+					<!--<IconTabFilter
+						text="物料新增" 
+						key="workflow_materialcreate" />
+					<IconTabFilter
+						text="物料扩充"
+						key="workflow_materialexpansion"/>
+					<IconTabFilter
+						text="物料修改"
+						key="workflow_materialchange" />
+					<IconTabFilter
+						text="领退料申请"
+						key="materialapplyreturn" />
+					<IconTabFilter
+						text="采购订单"
+						key="purchaseorder" />
+					<IconTabFilter
+						text="采购申请"
+						key="purchaseapply" />
+					<IconTabFilter
+						text="ECR"
+						key="PPECR01" />
+					<IconTabFilter
+						text="ECN"
+						key="PPECN01" />
+					<IconTabFilter
+						text="收款申请"
+						key="workflow_receipt" />
+					<IconTabFilter
+						text="收款清账"
+						key="workflow_receiptclear" />
+					<IconTabFilter
+						text="付款申请"
+						key="workflow_payment" />
+					<IconTabFilter
+						text="费用例账"
+						key="workflow_expense" />
+					<IconTabFilter
+						text="超信贷审批"
+						key="workflow_salescredit" />-->
+				</items>
+				<content>
+					<Table id="idTable" 
+						items="{path:'/WORKFLOWHEADSet',
+							sorter: {
+								path: 'DOCUMENT',
+								descending: true,
+								group: false
+							}}" 
+						busy="{/appProperties/tBusy}" 
+						growing="true">
+						<!--<headerToolbar>-->
+						<!--	<Toolbar>-->
+						<!--		<ToolbarSpacer />-->
+						<!--		<Button tooltip="View Settings" icon="sap-icon://drop-down-list"-->
+						<!--			press="onViewSettingsDialog" />-->
+						<!--	</Toolbar>-->
+						<!--</headerToolbar>-->
+						<columns>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+								<Label text="{i18n>ProcessDescription}" design="Bold" />
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+								<Label text="{i18n>CompanyCode}" design="Bold" />
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+								<Label text="{i18n>ProcessNumber}" design="Bold" />
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+								<Label text="{i18n>RequisitionNumber}" design="Bold" />
+							</Column>
+							<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+								<Label text="{i18n>Applicant}" design="Bold" />
+							</Column>
+							<!--<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">-->
+							<!--	<Label text="{i18n>Status}" design="Bold" />-->
+							<!--</Column>-->
+						</columns>
+						<items>
+							<ColumnListItem vAlign="Middle" type="Active" press="onSelectionChange">
+								<cells>
+									<Text text="{parts:[{path:'FLOWID'},
+										{path:'STARTCOMPANY'}],
+										formatter:'.setFlowDescription'}" />
+									<Text text="{STARTCOMPANY}" />
+									<Text text="{DOCUMENT}" />
+									<!--<Text text="{path:'DOCUMENT', formatter:'.setProcessNumber'}" />-->
+									<Text text="{APPNUM}" />
+									<Text text="{REQUESTER}" />
+									<!--<Text text="{STATUS}" />-->
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</content>
+			</IconTabBar>
+		</f:content>
+	</f:DynamicPage>
+</mvc:View>

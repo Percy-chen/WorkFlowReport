@@ -1,0 +1,7 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<ViewSettingsDialog id="vsDialog"
+		confirm="handleConfirm">
+	</ViewSettingsDialog>
+</core:FragmentDefinition>
